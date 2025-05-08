@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Splitter : MonoBehaviour
@@ -13,10 +14,11 @@ public class Splitter : MonoBehaviour
     [SerializeField, Min(MinMultiplier)] private float _scaleMultiplier = MinMultiplier;
     [SerializeField, Min(MinMultiplier)] private float _splitMultiplier = MinMultiplier;
 
-    public event Action<Cube, Vector3> CreatedChild;
+    public event Action<Cube> CreatedChild;
 
-    public void Split(Cube cube)
+    public List<Cube> Split(Cube cube)
     {
+        List<Cube> childs = new();
         int childCount = UnityEngine.Random.Range(_minSplitCount, _maxSplitCount + 1);
         Transform parent = cube.transform;
         Vector3 childScale = parent.localScale * _scaleMultiplier;
@@ -24,17 +26,21 @@ public class Splitter : MonoBehaviour
 
         for (int i = 0; i < childCount; i++)
         {
-            child = CreateChild(parent.position, childScale, cube.SplitChance);
-            CreatedChild?.Invoke(child, parent.position);
+            child = Spawn(parent.position, childScale, cube.SplitChance);
+            childs.Add(child);
         }
+
+        return childs;
     }
 
-    private Cube CreateChild(Vector3 position, Vector3 scale, float parentSplitChance)
+    private Cube Spawn(Vector3 position, Vector3 scale, float parentSplitChance)
     {
         Cube child = Instantiate(_prefab, position, UnityEngine.Random.rotation);
         child.transform.SetParent(_container);
         child.transform.localScale = scale;
-        child.Initialize(this, parentSplitChance * _splitMultiplier);
+        child.Initialize(parentSplitChance * _splitMultiplier);
+
+        CreatedChild?.Invoke(child);
 
         return child;
     }
