@@ -1634,6 +1634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1814775130}
   - component: {fileID: 1814775129}
+  - component: {fileID: 1814775131}
   m_Layer: 0
   m_Name: Splitter
   m_TagString: Untagged
@@ -1653,8 +1654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f0cee2f75cd5349bb4514d81e08493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 86866193267683973, guid: 64a3813f8b86b3b44a151c1281f97f38, type: 3}
-  _container: {fileID: 189870627}
+  _spawner: {fileID: 1814775131}
   _minSplitCount: 2
   _maxSplitCount: 6
   _scaleMultiplier: 0.5
@@ -1667,13 +1667,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814775128}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1814775131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814775128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2fc8dbf9c4d3c438d7d1a6d0224c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 86866193267683973, guid: 64a3813f8b86b3b44a151c1281f97f38, type: 3}
+  _container: {fileID: 189870627}
 --- !u!1 &2046173977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,8 +1740,8 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 361195310}
   - {fileID: 516533436}
-  - {fileID: 189870627}
   - {fileID: 1814775130}
+  - {fileID: 189870627}
   - {fileID: 1549107529}
   - {fileID: 2557956}
   - {fileID: 2046173979}
