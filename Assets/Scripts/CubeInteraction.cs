@@ -19,16 +19,16 @@ public class CubeInteraction : MonoBehaviour
 
     private void OnDetecting(Cube cube)
     {
-        if (IsSplit(cube.SplitChance))
+        if (CanSplit(cube.SplitChance))
         {
             List<Cube> childs = _splitter.Split(cube);
             ExplodeAll(childs);
         }
 
-        Destroy(cube.gameObject);
+        cube.InteractAfterClick();
     }
 
-    private bool IsSplit(float chance)
+    private bool CanSplit(float chance)
     {
         return chance >= Random.value;
     }

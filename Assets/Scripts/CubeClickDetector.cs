@@ -4,14 +4,22 @@ using UnityEngine;
 public class CubeClickDetector : MonoBehaviour
 {
     [SerializeField] private float _distance;
+    [SerializeField] private InputHandler _handler;
 
     public event Action<Cube> Detecting;
 
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetMouseButtonDown(0) == false)
-            return;
+        _handler.ClickingMouseDown += OnClickingMouseDown;
+    }
 
+    private void OnDisable()
+    {
+        _handler.ClickingMouseDown -= OnClickingMouseDown;
+    }
+
+    private void OnClickingMouseDown()
+    {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (IsHitCube(ray, out Cube cube))
@@ -25,6 +33,6 @@ public class CubeClickDetector : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, _distance) == false)
             return false;
 
-        return hit.rigidbody.gameObject.TryGetComponent(out cube);
+        return hit.collider.gameObject.TryGetComponent(out cube);
     }
 }

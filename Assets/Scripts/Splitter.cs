@@ -38,6 +38,7 @@ public class Splitter : MonoBehaviour
         Cube child = Instantiate(_prefab, position, UnityEngine.Random.rotation);
         child.transform.SetParent(_container);
         child.transform.localScale = scale;
+        child.Clicking += OnClicking;
         child.Initialize(parentSplitChance * _splitMultiplier);
 
         CreatedChild?.Invoke(child);
@@ -45,9 +46,20 @@ public class Splitter : MonoBehaviour
         return child;
     }
 
+    private void Awake()
+    {
+        if (_container != null && _container.gameObject.TryGetComponent(out CubeInitializer initializer))
+            initializer.Initialize(OnClicking);
+    }
+
     private void OnValidate()
     {
         if (_maxSplitCount < _minSplitCount)
             _maxSplitCount = _minSplitCount;
+    }
+
+    private void OnClicking(Cube cube)
+    {
+        Destroy(cube.gameObject);
     }
 }
