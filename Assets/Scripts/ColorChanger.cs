@@ -24,14 +24,14 @@ public class ColorChanger : MonoBehaviour
 
     private IEnumerator ChangeColorSmoothly(Material material, Color target)
     {
-        Color start = material.color;
+        Color source = material.color;
         float elapsedTime = 0f;
 
         while (elapsedTime < _smoothDuration && enabled)
         {
             elapsedTime += Time.deltaTime;
 
-            material.color = Color.Lerp(start, target, elapsedTime / _smoothDuration);
+            material.color = Color.Lerp(source, target, elapsedTime / _smoothDuration);
             yield return null;
         }
     }
