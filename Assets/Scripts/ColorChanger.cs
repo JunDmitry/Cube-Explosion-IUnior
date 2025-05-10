@@ -8,15 +8,15 @@ public class ColorChanger : MonoBehaviour
 
     private void OnEnable()
     {
-        _splitter.CreatedChild += OnCreatedChild;
+        _splitter.CreatingChild += OnCreatingChild;
     }
 
     private void OnDisable()
     {
-        _splitter.CreatedChild -= OnCreatedChild;
+        _splitter.CreatingChild -= OnCreatingChild;
     }
 
-    private void OnCreatedChild(Cube cube)
+    private void OnCreatingChild(Cube cube)
     {
         if (cube.TryGetComponent(out Renderer renderer))
             StartCoroutine(ChangeColorSmoothly(renderer.material, Random.ColorHSV()));
