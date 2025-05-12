@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 226018943}
   - component: {fileID: 226018942}
   - component: {fileID: 226018941}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fence (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 516533436}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,6 +639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 617515151}
   - component: {fileID: 617515152}
+  - component: {fileID: 617515153}
   m_Layer: 0
   m_Name: Explosive
   m_TagString: Untagged
@@ -673,8 +674,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98e701d0b85dea4785a2cbdd8d6a157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: 300
-  _radius: 4
+  _knockback: {fileID: 617515153}
+  _effect: {fileID: 198656289721292014, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
+--- !u!114 &617515153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617515150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72caf9c1ae183464fbb97a5193428b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _force: 200
+  _radius: 2.5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +795,7 @@ GameObject:
   - component: {fileID: 899016330}
   - component: {fileID: 899016329}
   - component: {fileID: 899016328}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,6 +876,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -935,13 +951,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2849935, y: -0.4252364, z: 0.14318039, w: 0.84702545}
-  m_LocalPosition: {x: 7.9137497, y: 7.103445, z: -6.777887}
+  m_LocalRotation: {x: 0.18892448, y: -0.6815759, z: 0.18912116, w: 0.6811719}
+  m_LocalPosition: {x: 15.162483, y: 8.915272, z: -0.21202196}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b7c8ebf2e2fbe4e9819b4da9309364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 5
 --- !u!1 &1044848789
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,7 +982,7 @@ GameObject:
   - component: {fileID: 1044848792}
   - component: {fileID: 1044848791}
   - component: {fileID: 1044848790}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fence (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1554,7 +1583,7 @@ GameObject:
   - component: {fileID: 1694187570}
   - component: {fileID: 1694187569}
   - component: {fileID: 1694187568}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fence (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1655,6 +1684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawner: {fileID: 1814775131}
+  _knockback: {fileID: 617515153}
   _minSplitCount: 2
   _maxSplitCount: 6
   _scaleMultiplier: 0.5
