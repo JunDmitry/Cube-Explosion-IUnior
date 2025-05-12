@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeInteraction : MonoBehaviour
@@ -6,6 +5,8 @@ public class CubeInteraction : MonoBehaviour
     [SerializeField] private CubeClickDetector _cubeDetector;
     [SerializeField] private Splitter _splitter;
     [SerializeField] private Explosion _explosion;
+
+    private float _maxSplitChance = 1f;
 
     private void OnEnable()
     {
@@ -20,10 +21,9 @@ public class CubeInteraction : MonoBehaviour
     private void OnDetecting(Cube cube)
     {
         if (CanSplit(cube.SplitChance))
-        {
-            List<Cube> childs = _splitter.Split(cube);
-            ExplodeAll(childs);
-        }
+            _splitter.Split(cube);
+        else
+            _explosion.ExplodeAtPosition(cube.transform.position, _maxSplitChance / cube.SplitChance);
 
         cube.InteractAfterClick();
     }
@@ -31,17 +31,5 @@ public class CubeInteraction : MonoBehaviour
     private bool CanSplit(float chance)
     {
         return chance >= Random.value;
-    }
-
-    private void ExplodeAll(IEnumerable<Cube> cubes)
-    {
-        foreach (Cube cube in cubes)
-            Explode(cube);
-    }
-
-    private void Explode(Cube cube)
-    {
-        if (cube.gameObject.TryGetComponent(out Rigidbody rigidbody))
-            _explosion.Explode(rigidbody);
     }
 }

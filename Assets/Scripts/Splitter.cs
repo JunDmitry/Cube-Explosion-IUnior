@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Splitter : MonoBehaviour
@@ -7,6 +6,7 @@ public class Splitter : MonoBehaviour
     private const float MinMultiplier = 0.00001f;
 
     [SerializeField] private Spawner _spawner;
+    [SerializeField] private Knockback _knockback;
 
     [SerializeField, Min(0)] private int _minSplitCount = 0;
     [SerializeField] private int _maxSplitCount;
@@ -15,9 +15,8 @@ public class Splitter : MonoBehaviour
 
     public event Action<Cube> CreatingChild;
 
-    public List<Cube> Split(Cube cube)
+    public void Split(Cube cube)
     {
-        List<Cube> childs = new();
         int childCount = UnityEngine.Random.Range(_minSplitCount, _maxSplitCount + 1);
         Transform parent = cube.transform;
         Vector3 childScale = parent.localScale * _scaleMultiplier;
@@ -29,10 +28,9 @@ public class Splitter : MonoBehaviour
             child.Initialize(cube.SplitChance * _splitMultiplier);
             CreatingChild?.Invoke(child);
 
-            childs.Add(child);
+            if (child.gameObject.TryGetComponent(out Rigidbody body))
+                _knockback.Apply(body, parent.position);
         }
-
-        return childs;
     }
 
     private void OnValidate()
