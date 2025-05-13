@@ -1,22 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeInteraction : MonoBehaviour
+public class CubeEventHub : MonoBehaviour
 {
     [SerializeField] private CubeClickDetector _cubeDetector;
     [SerializeField] private Spawner _spawner;
     [SerializeField] private Explosion _explosion;
+    [SerializeField] private ColorChanger _colorChanger;
 
     private float _maxSplitChance = 1f;
 
     private void OnEnable()
     {
         _cubeDetector.Detecting += OnDetecting;
+        _spawner.CreatingChild += _colorChanger.Change;
     }
 
     private void OnDisable()
     {
         _cubeDetector.Detecting += OnDetecting;
+        _spawner.CreatingChild -= _colorChanger.Change;
     }
 
     private void OnDetecting(Cube cube)
