@@ -4,7 +4,7 @@ using UnityEngine;
 public class ColorChanger : MonoBehaviour
 {
     [SerializeField] private float _smoothDuration;
-    [SerializeField] private Splitter _splitter;
+    [SerializeField] private Spawner _splitter;
 
     private void OnEnable()
     {
