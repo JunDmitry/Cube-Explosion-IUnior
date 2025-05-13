@@ -9,6 +9,11 @@ public class Cube : MonoBehaviour
 
     public float SplitChance => _splitChance;
 
+    private void OnDestroy()
+    {
+        Clicking = null;
+    }
+
     public void Initialize(float splitChance)
     {
         _splitChance = splitChance;
@@ -17,10 +22,5 @@ public class Cube : MonoBehaviour
     public void InteractAfterClick()
     {
         Clicking?.Invoke(this);
-    }
-
-    private void OnDestroy()
-    {
-        Clicking = null;
     }
 }

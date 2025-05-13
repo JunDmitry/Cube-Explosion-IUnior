@@ -15,6 +15,12 @@ public class Spawner : MonoBehaviour
 
     public event Action<Cube> CreatingChild;
 
+    private void OnValidate()
+    {
+        if (_maxSplitCount < _minSplitCount)
+            _maxSplitCount = _minSplitCount;
+    }
+
     public List<Cube> Split(Cube cube)
     {
         List<Cube> cubes = new();
@@ -33,11 +39,5 @@ public class Spawner : MonoBehaviour
         }
 
         return cubes;
-    }
-
-    private void OnValidate()
-    {
-        if (_maxSplitCount < _minSplitCount)
-            _maxSplitCount = _minSplitCount;
     }
 }

@@ -5,6 +5,17 @@ public class CubeFactory : MonoBehaviour
     [SerializeField] private Cube _prefab;
     [SerializeField] private Transform _container;
 
+    [SerializeField] private Vector3[] _initialCubePositions;
+
+    private void Awake()
+    {
+        if (_container == null)
+            _container = transform;
+
+        foreach (Vector3 position in _initialCubePositions)
+            Create(position, _prefab.transform.localScale);
+    }
+
     public Cube Create(Vector3 position, Vector3 scale)
     {
         Cube child = Instantiate(_prefab, position, Random.rotation);
@@ -13,12 +24,6 @@ public class CubeFactory : MonoBehaviour
         child.Clicking += OnClicking;
 
         return child;
-    }
-
-    private void Awake()
-    {
-        if (_container != null && _container.gameObject.TryGetComponent(out CubeInitializer initializer))
-            initializer.Initialize(OnClicking);
     }
 
     private void OnClicking(Cube cube)
