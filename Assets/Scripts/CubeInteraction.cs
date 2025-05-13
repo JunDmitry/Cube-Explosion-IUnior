@@ -4,7 +4,7 @@ using UnityEngine;
 public class CubeInteraction : MonoBehaviour
 {
     [SerializeField] private CubeClickDetector _cubeDetector;
-    [SerializeField] private Splitter _splitter;
+    [SerializeField] private Spawner _splitter;
     [SerializeField] private Explosion _explosion;
 
     private float _maxSplitChance = 1f;
