@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeInteraction : MonoBehaviour
@@ -21,9 +22,14 @@ public class CubeInteraction : MonoBehaviour
     private void OnDetecting(Cube cube)
     {
         if (CanSplit(cube.SplitChance))
-            _splitter.Split(cube);
+        {
+            List<Cube> childs = _splitter.Split(cube);
+            KnockbackAll(childs, cube.transform.position);
+        }
         else
+        {
             _explosion.ExplodeAtPosition(cube.transform.position, _maxSplitChance / cube.SplitChance);
+        }
 
         cube.InteractAfterClick();
     }
@@ -31,5 +37,12 @@ public class CubeInteraction : MonoBehaviour
     private bool CanSplit(float chance)
     {
         return chance >= Random.value;
+    }
+
+    private void KnockbackAll(IEnumerable<Cube> childs, Vector3 position)
+    {
+        foreach (Cube child in childs)
+            if (child.gameObject.TryGetComponent(out Rigidbody body))
+                _explosion.ApplyKnockback(body, position);
     }
 }
