@@ -3,18 +3,26 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    [SerializeField] private Knockback _knockback;
+    [SerializeField] private float _force;
+    [SerializeField] private float _radius;
+
     [SerializeField] private ParticleSystem _effect;
+    [SerializeField] private AudioSource _sourceClip;
 
     public void ExplodeAtPosition(Vector3 position, float multiplier = 1f)
     {
-        Collider[] colliders = Physics.OverlapSphere(position, _knockback.Radius * multiplier);
+        Collider[] colliders = Physics.OverlapSphere(position, _radius * multiplier);
 
         foreach (Collider collider in colliders)
             if (collider.attachedRigidbody != null && collider.gameObject.TryGetComponent(out Cube _))
-                _knockback.Apply(collider.attachedRigidbody, position, multiplier);
+                ApplyKnockback(collider.attachedRigidbody, position, multiplier);
 
         PlayEffect(position);
+    }
+
+    public void ApplyKnockback(Rigidbody body, Vector3 position, float multiplier = 1f)
+    {
+        body.AddExplosionForce(_force * multiplier, position, _radius * multiplier);
     }
 
     private void PlayEffect(Vector3 position)
@@ -26,6 +34,9 @@ public class Explosion : MonoBehaviour
         }
 
         ParticleSystem effect = Instantiate(_effect, position, Quaternion.identity);
+        _sourceClip.transform.position = position;
+        _sourceClip.Play();
+
         StartCoroutine(DestroyAfterStop(effect));
     }
 
