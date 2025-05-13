@@ -4,22 +4,13 @@ using UnityEngine;
 public class ColorChanger : MonoBehaviour
 {
     [SerializeField] private float _smoothDuration;
-    [SerializeField] private Spawner _splitter;
 
-    private void OnEnable()
-    {
-        _splitter.CreatingChild += OnCreatingChild;
-    }
-
-    private void OnDisable()
-    {
-        _splitter.CreatingChild -= OnCreatingChild;
-    }
-
-    private void OnCreatingChild(Cube cube)
+    public void Change(Cube cube)
     {
         if (cube.TryGetComponent(out Renderer renderer))
             StartCoroutine(ChangeColorSmoothly(renderer.material, Random.ColorHSV()));
+        else
+            Debug.LogWarning("Cannot change color Gameobject without Renderer component!");
     }
 
     private IEnumerator ChangeColorSmoothly(Material material, Color target)

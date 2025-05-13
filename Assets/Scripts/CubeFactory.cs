@@ -4,7 +4,6 @@ public class CubeFactory : MonoBehaviour
 {
     [SerializeField] private Cube _prefab;
     [SerializeField] private Transform _container;
-
     [SerializeField] private Vector3[] _initialCubePositions;
 
     private void Awake()
