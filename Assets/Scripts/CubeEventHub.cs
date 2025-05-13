@@ -18,7 +18,7 @@ public class CubeEventHub : MonoBehaviour
 
     private void OnDisable()
     {
-        _cubeDetector.Detecting += OnDetecting;
+        _cubeDetector.Detecting -= OnDetecting;
         _spawner.CreatingChild -= _colorChanger.Change;
     }
 
